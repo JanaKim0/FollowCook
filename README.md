@@ -127,8 +127,7 @@ npm run android:dev
 
 **Яна Ким** — [github.com/JanaKim0](https://github.com/JanaKim0)
 
-Код написан в соавторстве с **Claude** (Anthropic) — от постановки этапов
-до сборки `.apk`.
+Сделано с помощью **Claude** (Anthropic).
 
 Логотип и цветовая идея — Яна Ким.
 
