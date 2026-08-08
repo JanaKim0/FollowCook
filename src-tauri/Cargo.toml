@@ -1,6 +1,6 @@
 [package]
 name = "followcook"
-version = "0.1.0"
+version = "0.1.1"
 description = "Приложение для записи рецептов с пошаговыми фото"
 authors = ["Jana Kim"]
 edition = "2021"
