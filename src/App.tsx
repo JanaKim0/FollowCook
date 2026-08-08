@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
+import ScrollToTop from "./components/ScrollToTop";
 import { getStore } from "./data/store";
 import { I18nProvider } from "./i18n/I18nProvider";
 import HomeScreen from "./routes/HomeScreen";
@@ -26,6 +27,7 @@ export default function App() {
   return (
     <I18nProvider>
       <HashRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/recipe/new" element={<NewRecipeScreen />} />

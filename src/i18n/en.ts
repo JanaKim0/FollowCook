@@ -25,6 +25,11 @@ export const en: Dict = {
   saveChanges: "Save changes",
   needTitleHint: "Give the recipe a name to save it",
 
+  leaveTitle: "Leave without saving?",
+  leaveMessage: "Everything you typed on this screen will be lost.",
+  leaveConfirm: "Leave",
+  leaveStay: "Stay",
+
   titleLabel: "Dish name",
   titlePlaceholder: "For example: creamy chicken pasta",
 

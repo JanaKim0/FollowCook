@@ -3,6 +3,22 @@
   display: flex;
   flex-direction: column;
   background: var(--paper);
+  /* Экран мягко проявляется при переходе — так смена страниц
+     не выглядит как рывок */
+  animation: screen-in var(--dur) var(--ease);
+}
+
+@keyframes screen-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen {
+    animation: none;
+  }
 }
 
 /* Подложка цвета фона: содержимое уезжает под неё при прокрутке,

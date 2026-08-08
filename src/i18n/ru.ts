@@ -33,6 +33,11 @@ export const ru = {
   saveChanges: "Сохранить изменения",
   needTitleHint: "Чтобы сохранить, дайте рецепту название",
 
+  leaveTitle: "Выйти без сохранения?",
+  leaveMessage: "Всё, что вы написали на этом экране, пропадёт.",
+  leaveConfirm: "Выйти",
+  leaveStay: "Остаться",
+
   titleLabel: "Название блюда",
   titlePlaceholder: "Например: паста с курицей",
 

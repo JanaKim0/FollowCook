@@ -10,6 +10,12 @@ type ScreenProps = {
   title: ReactNode;
   /** Куда ведёт стрелка «назад». Если не передать — стрелки не будет */
   backTo?: string;
+  /**
+   * Своя обработка «назад» вместо простого перехода. Нужна там, где
+   * уход с экрана может стоить пользователю несохранённой работы.
+   * Если передан, backTo не используется.
+   */
+  onBack?: () => void;
   /** Кнопки справа в шапке */
   headerRight?: ReactNode;
   /** Строка под заголовком: количество рецептов, подсказка и т.п. */
@@ -29,6 +35,7 @@ type ScreenProps = {
 export default function Screen({
   title,
   backTo,
+  onBack,
   headerRight,
   subtitle,
   children,
@@ -41,7 +48,9 @@ export default function Screen({
       <div className="screen__headerWrap">
         <header className="screen__header">
           <div className="screen__headerRow">
-            {backTo ? (
+            {onBack ? (
+              <IconButton label={t.back} icon={<IconBack />} onClick={onBack} />
+            ) : backTo ? (
               <IconButton to={backTo} label={t.back} icon={<IconBack />} />
             ) : null}
 

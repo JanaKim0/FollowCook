@@ -1,9 +1,11 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import type { RecipeDraft, RecipeFull } from "../data/types";
 import { useT } from "../i18n/I18nProvider";
 import Button from "./Button";
 import Card from "./Card";
+import ConfirmDialog from "./ConfirmDialog";
 import ErrorNote from "./ErrorNote";
 import IconButton from "./IconButton";
 import PhotoPicker from "./PhotoPicker";
@@ -54,6 +56,7 @@ export default function RecipeForm({
   onSubmit,
 }: RecipeFormProps) {
   const t = useT();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState(initial?.title ?? "");
   const [coverPhoto, setCoverPhoto] = useState<string | null>(
@@ -74,11 +77,40 @@ export default function RecipeForm({
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [leaveOpen, setLeaveOpen] = useState(false);
 
   // Чтобы только что добавленная строка сразу получала курсор
   const focusNext = useRef(false);
 
   const canSave = title.trim().length > 0 && !saving;
+
+  // Сравниваем форму с тем, какой она была при открытии. Если человек
+  // что-то успел ввести, уход с экрана нужно подтверждать — иначе одно
+  // случайное нажатие «назад» стирает весь набранный рецепт.
+  const initialSnapshot = useMemo(
+    () =>
+      JSON.stringify({
+        title: initial?.title ?? "",
+        coverPhoto: initial?.coverPhoto ?? null,
+        ingredients: (initial?.ingredients ?? []).map((i) => i.text),
+        steps: (initial?.steps ?? []).map((s) => ({ text: s.text, photo: s.photo })),
+      }),
+    [initial],
+  );
+
+  const currentSnapshot = JSON.stringify({
+    title,
+    coverPhoto,
+    ingredients: ingredients.map((row) => row.text),
+    steps: steps.map((row) => ({ text: row.text, photo: row.photo })),
+  });
+
+  const dirty = currentSnapshot !== initialSnapshot;
+
+  function handleBack() {
+    if (dirty) setLeaveOpen(true);
+    else navigate(backTo);
+  }
 
   function addIngredient() {
     focusNext.current = true;
@@ -130,7 +162,7 @@ export default function RecipeForm({
   return (
     <Screen
       title={screenTitle}
-      backTo={backTo}
+      onBack={handleBack}
       footer={
         <>
           <Button
@@ -282,6 +314,20 @@ export default function RecipeForm({
           {t.addStep}
         </Button>
       </section>
+
+      <ConfirmDialog
+        open={leaveOpen}
+        danger
+        title={t.leaveTitle}
+        message={t.leaveMessage}
+        confirmLabel={t.leaveConfirm}
+        cancelLabel={t.leaveStay}
+        onConfirm={() => {
+          setLeaveOpen(false);
+          navigate(backTo);
+        }}
+        onCancel={() => setLeaveOpen(false)}
+      />
     </Screen>
   );
 }

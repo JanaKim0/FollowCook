@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Еле заметная мята вместо белого: иконка сразу узнаётся среди
+       остальных на экране телефона, но белочка на ней не теряется -->
+  <color name="ic_launcher_background">#EAF9F1</color>
+</resources>
