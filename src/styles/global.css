@@ -1,0 +1,56 @@
+/*
+ * Базовые стили каркаса. Полноценная дизайн-система (палитра, компоненты)
+ * появится на следующем этапе — здесь только то, без чего экран выглядит
+ * сломанным на телефоне.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family:
+    "Segoe UI",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background: #ffffff;
+  color: #1f2d28;
+  /* Отключаем «синюю подсветку» при тапе — на телефоне это выглядит чужеродно */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Экран занимает всю высоту и не залезает под системные панели Android */
+.screen {
+  min-height: 100%;
+  padding: calc(16px + env(safe-area-inset-top)) 16px
+    calc(16px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.screen__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.screen__head h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+a {
+  color: #0f766e;
+}

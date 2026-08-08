@@ -31,6 +31,7 @@ pnpm-debug.log*
 # --- Редакторы и ОС ---
 .vscode/*
 !.vscode/extensions.json
+.claude/
 .idea/
 .DS_Store
 Thumbs.db
