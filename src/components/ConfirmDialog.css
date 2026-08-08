@@ -1,0 +1,71 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: var(--space-4);
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+}
+
+.dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  padding: 0;
+  background: rgba(52, 60, 63, 0.45);
+  animation: dialog-fade var(--dur) var(--ease);
+}
+
+/* Окно выезжает снизу — привычное поведение для Android */
+.dialog__panel {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  animation: dialog-rise var(--dur) var(--ease);
+}
+
+.dialog__title {
+  font-size: 20px;
+}
+
+.dialog__message {
+  font-size: 15px;
+  color: var(--ink-70);
+}
+
+.dialog__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+@keyframes dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+/* Уважаем системную настройку «уменьшить движение» */
+@media (prefers-reduced-motion: reduce) {
+  .dialog__backdrop,
+  .dialog__panel {
+    animation: none;
+  }
+}

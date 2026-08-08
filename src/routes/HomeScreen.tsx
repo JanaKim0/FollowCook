@@ -1,18 +1,32 @@
-import { Link } from "react-router-dom";
-
+import Button from "../components/Button";
+import EmptyState from "../components/EmptyState";
+import IconButton from "../components/IconButton";
+import Screen from "../components/Screen";
+import { IconPlus, IconSettings } from "../components/icons";
 import { paths } from "./paths";
 
 export default function HomeScreen() {
   return (
-    <main className="screen">
-      <header className="screen__head">
-        <h1>FollowCook</h1>
-        <Link to={paths.settings}>Настройки</Link>
-      </header>
-
-      <p>Здесь будет список рецептов.</p>
-
-      <Link to={paths.newRecipe}>＋ Новый рецепт</Link>
-    </main>
+    <Screen
+      title="FollowCook"
+      subtitle="Мои рецепты"
+      headerRight={
+        <IconButton
+          to={paths.settings}
+          label="Настройки"
+          icon={<IconSettings />}
+        />
+      }
+      footer={
+        <Button to={paths.newRecipe} variant="primary" size="lg" block icon={<IconPlus />}>
+          Новый рецепт
+        </Button>
+      }
+    >
+      <EmptyState
+        title="Пока пусто"
+        message="Добавьте первый рецепт — и он появится здесь."
+      />
+    </Screen>
   );
 }

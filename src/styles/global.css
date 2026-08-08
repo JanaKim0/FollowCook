@@ -1,8 +1,17 @@
-/*
- * Базовые стили каркаса. Полноценная дизайн-система (палитра, компоненты)
- * появится на следующем этапе — здесь только то, без чего экран выглядит
- * сломанным на телефоне.
- */
+/* Шрифты подключаются из node_modules и уезжают внутрь приложения,
+   поэтому текст выглядит одинаково и без интернета. */
+@import "@fontsource/comfortaa/cyrillic-600.css";
+@import "@fontsource/comfortaa/cyrillic-700.css";
+@import "@fontsource/comfortaa/latin-600.css";
+@import "@fontsource/comfortaa/latin-700.css";
+@import "@fontsource/nunito/cyrillic-400.css";
+@import "@fontsource/nunito/cyrillic-600.css";
+@import "@fontsource/nunito/cyrillic-700.css";
+@import "@fontsource/nunito/latin-400.css";
+@import "@fontsource/nunito/latin-600.css";
+@import "@fontsource/nunito/latin-700.css";
+
+@import "./tokens.css";
 
 *,
 *::before,
@@ -18,39 +27,72 @@ body,
 }
 
 body {
-  font-family:
-    "Segoe UI",
-    system-ui,
-    -apple-system,
-    sans-serif;
-  background: #ffffff;
-  color: #1f2d28;
-  /* Отключаем «синюю подсветку» при тапе — на телефоне это выглядит чужеродно */
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+
+  /* Поведение как у настоящего приложения, а не веб-страницы */
   -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
 }
 
-/* Экран занимает всю высоту и не залезает под системные панели Android */
-.screen {
-  min-height: 100%;
-  padding: calc(16px + env(safe-area-inset-top)) 16px
-    calc(16px + env(safe-area-inset-bottom));
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* Текст выделяется только там, где это осмысленно (поля ввода) */
+body {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-.screen__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
 }
 
-.screen__head h1 {
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
   margin: 0;
-  font-size: 22px;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 19px;
+}
+
+h3 {
+  font-size: 17px;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
 }
 
 a {
-  color: #0f766e;
+  color: var(--mint-600);
+  text-decoration: none;
+}
+
+/* Видимая рамка фокуса — нужна для доступности,
+   но только при управлении с клавиатуры, не по тапу */
+:focus-visible {
+  outline: 3px solid var(--mint-500);
+  outline-offset: 2px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }

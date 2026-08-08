@@ -1,0 +1,31 @@
+.card {
+  display: block;
+  border-radius: var(--r-lg);
+  padding: var(--space-4);
+  color: var(--ink);
+  border: 2px solid transparent;
+}
+
+.card--surface {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: var(--shadow-sm);
+}
+
+.card--mint {
+  background: var(--mint-100);
+  border-color: var(--mint-200);
+}
+
+/* Карточка-ссылка заметно «проминается» под пальцем —
+   так видно, что на неё можно нажать */
+.card--tappable {
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+.card--tappable:active {
+  transform: scale(0.985);
+  box-shadow: var(--shadow-sm);
+}

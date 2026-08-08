@@ -1,0 +1,50 @@
+.iconBtn {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.iconBtn svg {
+  width: 21px;
+  height: 21px;
+}
+
+.iconBtn:active {
+  transform: scale(0.9);
+}
+
+.iconBtn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+}
+
+.iconBtn--surface {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.iconBtn--mint {
+  background: var(--mint-200);
+  color: var(--ink);
+}
+
+.iconBtn--ghost {
+  background: transparent;
+  color: var(--ink-70);
+}
+
+.iconBtn--danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
