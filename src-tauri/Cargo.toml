@@ -24,6 +24,14 @@ tauri = { version = "2", features = ["protocol-asset"] }
 tauri-plugin-opener = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+# Рецепты в SQLite, фотографии — файлами в папке приложения
 tauri-plugin-sql = { version = "2.4.0", features = ["sqlite"] }
 tauri-plugin-fs = "2.5.1"
 
+# Приложение ставится из файла, который пересылают в мессенджере,
+# поэтому размер важнее скорости сборки.
+[profile.release]
+opt-level = "s"   # оптимизировать по размеру, а не по скорости
+lto = true        # выбросить всё, что в итоге не используется
+codegen-units = 1 # медленнее собирается, зато компактнее результат
+strip = true      # убрать отладочные символы

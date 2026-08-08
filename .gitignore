@@ -7,16 +7,17 @@ dist-ssr/
 
 # --- Rust / Tauri ---
 src-tauri/target/
-src-tauri/gen/schemas/
 
-# --- Android (генерируется командой `tauri android init`) ---
-src-tauri/gen/android/.gradle/
-src-tauri/gen/android/build/
-src-tauri/gen/android/app/build/
-src-tauri/gen/android/local.properties
-src-tauri/gen/android/.idea/
+# Всё в gen/ создаётся заново командой `tauri android init`,
+# её запускает скрипт scripts/build-apk.ps1. Хранить это в репозитории незачем.
+src-tauri/gen/
+
+# --- Собранное приложение ---
 *.apk
 *.aab
+release/
+
+# --- Ключи подписи: в репозиторий не попадают никогда ---
 *.keystore
 *.jks
 keystore.properties
