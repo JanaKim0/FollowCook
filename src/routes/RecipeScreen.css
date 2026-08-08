@@ -1,0 +1,87 @@
+.view__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.view__heading {
+  font-size: 18px;
+  padding-left: var(--space-1);
+}
+
+.view__empty {
+  font-size: 14px;
+  color: var(--ink-45);
+  padding: 0 var(--space-2);
+}
+
+/* --- Ингредиенты --- */
+
+.view__ingredients {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.view__ingredient {
+  position: relative;
+  padding-left: var(--space-5);
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+
+/* Кружок вместо стандартного маркера — в тон остальному интерфейсу */
+.view__ingredient::before {
+  content: "";
+  position: absolute;
+  left: var(--space-1);
+  top: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: var(--r-pill);
+  background: var(--mint-500);
+}
+
+/* --- Этап приготовления --- */
+
+.stepView {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stepView__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Крупный номер в мятном кружке: во время готовки взгляд должен
+   находить нужный шаг мгновенно */
+.stepView__badge {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-pill);
+  background: var(--mint-300);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.stepView__text {
+  flex: 1;
+  min-width: 0;
+  padding-top: 4px;
+  font-size: 16px;
+  line-height: 1.55;
+  /* Переносы строк, набранные пользователем, сохраняются */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
