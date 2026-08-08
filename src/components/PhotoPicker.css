@@ -1,0 +1,64 @@
+.picker {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Поле выбора файла скрыто: нажимаем на него из своей кнопки,
+   потому что системное поле выглядит чужеродно */
+.picker__input {
+  display: none;
+}
+
+.picker__preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.picker__actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-start;
+}
+
+/* Пунктирная рамка ясно говорит «сюда можно положить фото» */
+.picker__add {
+  width: 100%;
+  min-height: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  padding: var(--space-4);
+  border: 2px dashed var(--mint-400);
+  border-radius: var(--r-md);
+  background: var(--mint-50);
+  color: var(--ink-70);
+
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background-color var(--dur-fast) var(--ease);
+}
+
+.picker__add:active {
+  transform: scale(0.98);
+  background: var(--mint-100);
+}
+
+.picker__add:disabled {
+  opacity: 0.55;
+  cursor: default;
+  transform: none;
+}
+
+.picker__addIcon {
+  width: 26px;
+  height: 26px;
+  color: var(--mint-600);
+}

@@ -1,23 +1,29 @@
-import Button from "../components/Button";
-import Card from "../components/Card";
-import Screen from "../components/Screen";
-import { IconCheck } from "../components/icons";
+import { useNavigate } from "react-router-dom";
+
+import RecipeForm from "../components/RecipeForm";
+import { getStore } from "../data/store";
+import type { RecipeDraft } from "../data/types";
 import { paths } from "./paths";
 
 export default function NewRecipeScreen() {
+  const navigate = useNavigate();
+
+  async function handleSubmit(draft: RecipeDraft) {
+    const store = await getStore();
+    const id = await store.createRecipe(draft);
+
+    // Сразу открываем сохранённый рецепт: человек видит результат
+    // своей работы, а не возвращается в общий список.
+    // replace — чтобы кнопка «назад» вела на главную, а не в форму.
+    navigate(paths.recipe(id), { replace: true });
+  }
+
   return (
-    <Screen
-      title="Новый рецепт"
+    <RecipeForm
+      screenTitle="Новый рецепт"
       backTo={paths.home}
-      footer={
-        <Button variant="primary" size="lg" block icon={<IconCheck />} disabled>
-          Сохранить рецепт
-        </Button>
-      }
-    >
-      <Card>
-        <p>Здесь будет форма: название, ингредиенты и этапы приготовления.</p>
-      </Card>
-    </Screen>
+      submitLabel="Сохранить рецепт"
+      onSubmit={handleSubmit}
+    />
   );
 }

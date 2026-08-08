@@ -122,5 +122,10 @@ export function createWebStore(): RecipeStore {
       snapshot.settings[key] = value;
       write(snapshot);
     },
+
+    async cleanupPhotos(): Promise<void> {
+      // В браузере снимки лежат прямо внутри рецептов, отдельных файлов нет —
+      // значит и убирать нечего
+    },
   };
 }

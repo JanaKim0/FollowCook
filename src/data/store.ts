@@ -18,6 +18,13 @@ export interface RecipeStore {
 
   getSetting(key: string): Promise<string | null>;
   setSetting(key: string, value: string): Promise<void>;
+
+  /**
+   * Удаляет снимки, на которые не ссылается ни один рецепт.
+   * Такие остаются, если человек прикрепил фото, а рецепт сохранять
+   * передумал. Вызывается один раз при запуске.
+   */
+  cleanupPhotos(): Promise<void>;
 }
 
 /**

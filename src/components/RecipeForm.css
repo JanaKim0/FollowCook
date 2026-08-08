@@ -1,0 +1,81 @@
+.form__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.form__heading {
+  font-size: 18px;
+  padding-left: var(--space-1);
+}
+
+.form__empty {
+  font-size: 14px;
+  color: var(--ink-45);
+  padding: 0 var(--space-2);
+}
+
+.form__rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Поле ингредиента и крестик в одну строку */
+.form__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.form__rowField {
+  flex: 1;
+  min-width: 0;
+}
+
+.form__hintFooter {
+  font-size: 13px;
+  color: var(--ink-45);
+  text-align: center;
+}
+
+/* --- Карточка этапа --- */
+
+.stepEditor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stepEditor__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.stepEditor__number {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.stepEditor__tools {
+  display: flex;
+  gap: var(--space-1);
+  /* Служебные кнопки чуть меньше основных: они не главное на карточке */
+  margin-right: calc(-1 * var(--space-2));
+}
+
+.stepEditor__tools .iconBtn {
+  width: 36px;
+  height: 36px;
+}
+
+.stepEditor__tools .iconBtn svg {
+  width: 19px;
+  height: 19px;
+}

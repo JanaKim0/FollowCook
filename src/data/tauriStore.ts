@@ -1,6 +1,6 @@
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { appDataDir, join } from "@tauri-apps/api/path";
-import { BaseDirectory, mkdir, remove, writeFile } from "@tauri-apps/plugin-fs";
+import { BaseDirectory, mkdir, readDir, remove, writeFile } from "@tauri-apps/plugin-fs";
 import Database from "@tauri-apps/plugin-sql";
 
 import { compressImage } from "./imageCompress";
@@ -221,6 +221,29 @@ export async function createTauriStore(): Promise<RecipeStore> {
          ON CONFLICT(key) DO UPDATE SET value = excluded.value`,
         [key, value],
       );
+    },
+
+    async cleanupPhotos(): Promise<void> {
+      let files;
+      try {
+        files = await readDir(PHOTO_DIR, { baseDir: BaseDirectory.AppData });
+      } catch {
+        // Папки ещё нет — значит и мусора в ней быть не может
+        return;
+      }
+
+      const referenced = await db.select<Array<{ photo: string }>>(`
+        SELECT cover_photo AS photo FROM recipes WHERE cover_photo IS NOT NULL
+        UNION
+        SELECT photo FROM steps WHERE photo IS NOT NULL
+      `);
+
+      const inUse = new Set(referenced.map((row) => row.photo));
+      const orphans = files
+        .filter((entry) => entry.isFile && !inUse.has(entry.name))
+        .map((entry) => entry.name);
+
+      await removePhotos(orphans);
     },
   };
 }
