@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 
 import { getStore } from "../data/store";
+import { useT } from "../i18n/I18nProvider";
 import Button from "./Button";
 import Photo from "./Photo";
 import { IconCamera, IconClose } from "./icons";
@@ -27,6 +28,7 @@ export default function PhotoPicker({
   addLabel,
   ratio = "cover",
 }: PhotoPickerProps) {
+  const t = useT();
   const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
 
@@ -58,7 +60,7 @@ export default function PhotoPicker({
 
       {photo ? (
         <div className="picker__preview">
-          <Photo photo={photo} alt="Выбранная фотография" ratio={ratio} />
+          <Photo photo={photo} alt={t.chosenPhotoAlt} ratio={ratio} />
 
           <div className="picker__actions">
             <Button
@@ -68,7 +70,7 @@ export default function PhotoPicker({
               disabled={busy}
               onClick={() => inputRef.current?.click()}
             >
-              Заменить
+              {t.replacePhoto}
             </Button>
             <Button
               variant="ghost"
@@ -76,7 +78,7 @@ export default function PhotoPicker({
               icon={<IconClose />}
               onClick={() => onChange(null)}
             >
-              Убрать
+              {t.removePhoto}
             </Button>
           </div>
         </div>
@@ -88,7 +90,7 @@ export default function PhotoPicker({
           onClick={() => inputRef.current?.click()}
         >
           <IconCamera className="picker__addIcon" />
-          <span>{busy ? "Сохраняем…" : addLabel}</span>
+          <span>{busy ? t.saving : addLabel}</span>
         </button>
       )}
     </div>

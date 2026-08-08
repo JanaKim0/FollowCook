@@ -7,23 +7,20 @@ import RecipeCard from "../components/RecipeCard";
 import Screen from "../components/Screen";
 import { IconPlus, IconSettings } from "../components/icons";
 import { useRecipes } from "../data/hooks";
-import { pluralRu } from "../lib/plural";
+import { useT } from "../i18n/I18nProvider";
 import "./HomeScreen.css";
 import { paths } from "./paths";
 
 export default function HomeScreen() {
+  const t = useT();
   const { data: recipes, loading, error } = useRecipes();
-
-  const subtitle = loading
-    ? "Мои рецепты"
-    : `${recipes.length} ${pluralRu(recipes.length, ["рецепт", "рецепта", "рецептов"])}`;
 
   return (
     <Screen
-      title="FollowCook"
-      subtitle={subtitle}
+      title={t.appName}
+      subtitle={loading ? t.myRecipes : t.recipesCount(recipes.length)}
       headerRight={
-        <IconButton to={paths.settings} label="Настройки" icon={<IconSettings />} />
+        <IconButton to={paths.settings} label={t.settings} icon={<IconSettings />} />
       }
       footer={
         <Button
@@ -33,7 +30,7 @@ export default function HomeScreen() {
           block
           icon={<IconPlus />}
         >
-          Новый рецепт
+          {t.newRecipe}
         </Button>
       }
     >
@@ -42,21 +39,14 @@ export default function HomeScreen() {
       ) : loading ? (
         <ListSkeleton />
       ) : recipes.length === 0 ? (
-        <EmptyState
-          title="Пока пусто"
-          message="Добавьте первый рецепт — и он появится здесь."
-        />
+        <EmptyState title={t.emptyTitle} message={t.emptyMessage} />
       ) : (
         <div className="recipeList">
           {recipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}
               recipe={recipe}
-              stepsLabel={`${recipe.stepCount} ${pluralRu(recipe.stepCount, [
-                "этап",
-                "этапа",
-                "этапов",
-              ])}`}
+              stepsLabel={t.stepsCount(recipe.stepCount)}
             />
           ))}
         </div>

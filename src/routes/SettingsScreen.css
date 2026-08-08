@@ -1,0 +1,93 @@
+.settings__section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.settings__heading {
+  font-size: 18px;
+  padding-left: var(--space-1);
+}
+
+/* --- Переключатель языка --- */
+
+.langSwitch {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--mint-100);
+  border: 2px solid var(--mint-200);
+  border-radius: var(--r-pill);
+}
+
+.langSwitch__option {
+  flex: 1;
+  min-height: 44px;
+  border: none;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink-70);
+
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+/* Выбранный язык — тёмная «таблетка»: видно с одного взгляда,
+   без разглядывания галочек */
+.langSwitch__option--active {
+  background: var(--ink);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- Блок автора --- */
+
+.settings__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.settings__authorArt {
+  width: 62px;
+  flex-shrink: 0;
+}
+
+.settings__authorText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.settings__authorName {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.settings__authorLink {
+  font-size: 14px;
+  color: var(--ink-70);
+  overflow-wrap: anywhere;
+}
+
+.settings__githubBtn {
+  margin-top: var(--space-4);
+}
+
+/* --- Подпись внизу --- */
+
+.settings__madeFor {
+  margin-top: auto;
+  padding-top: var(--space-6);
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-70);
+}

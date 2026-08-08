@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import RecipeForm from "../components/RecipeForm";
 import { getStore } from "../data/store";
 import type { RecipeDraft } from "../data/types";
+import { useT } from "../i18n/I18nProvider";
 import { paths } from "./paths";
 
 export default function NewRecipeScreen() {
+  const t = useT();
   const navigate = useNavigate();
 
   async function handleSubmit(draft: RecipeDraft) {
@@ -20,9 +22,9 @@ export default function NewRecipeScreen() {
 
   return (
     <RecipeForm
-      screenTitle="Новый рецепт"
+      screenTitle={t.newRecipeTitle}
       backTo={paths.home}
-      submitLabel="Сохранить рецепт"
+      submitLabel={t.saveRecipe}
       onSubmit={handleSubmit}
     />
   );

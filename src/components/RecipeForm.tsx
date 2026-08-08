@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 
 import type { RecipeDraft, RecipeFull } from "../data/types";
+import { useT } from "../i18n/I18nProvider";
 import Button from "./Button";
 import Card from "./Card";
 import ErrorNote from "./ErrorNote";
@@ -52,6 +53,8 @@ export default function RecipeForm({
   initial,
   onSubmit,
 }: RecipeFormProps) {
+  const t = useT();
+
   const [title, setTitle] = useState(initial?.title ?? "");
   const [coverPhoto, setCoverPhoto] = useState<string | null>(
     initial?.coverPhoto ?? null,
@@ -138,12 +141,10 @@ export default function RecipeForm({
             disabled={!canSave}
             onClick={() => void handleSubmit()}
           >
-            {saving ? "Сохраняем…" : submitLabel}
+            {saving ? t.saving : submitLabel}
           </Button>
           {title.trim().length === 0 ? (
-            <p className="form__hintFooter">
-              Чтобы сохранить, дайте рецепту название
-            </p>
+            <p className="form__hintFooter">{t.needTitleHint}</p>
           ) : null}
         </>
       }
@@ -153,10 +154,10 @@ export default function RecipeForm({
       {/* --- Название и обложка --- */}
       <section className="form__section">
         <TextField
-          label="Название блюда"
+          label={t.titleLabel}
           value={title}
           onChange={setTitle}
-          placeholder="Например: паста с курицей"
+          placeholder={t.titlePlaceholder}
           maxLength={120}
           enterKeyHint="done"
         />
@@ -164,17 +165,17 @@ export default function RecipeForm({
         <PhotoPicker
           photo={coverPhoto}
           onChange={setCoverPhoto}
-          addLabel="Добавить фото блюда"
+          addLabel={t.addCoverPhoto}
           ratio="cover"
         />
       </section>
 
       {/* --- Ингредиенты --- */}
       <section className="form__section">
-        <h2 className="form__heading">Ингредиенты</h2>
+        <h2 className="form__heading">{t.ingredients}</h2>
 
         {ingredients.length === 0 ? (
-          <p className="form__empty">Пока не добавлено ни одного ингредиента</p>
+          <p className="form__empty">{t.noIngredientsYet}</p>
         ) : (
           <ul className="form__rows">
             {ingredients.map((row, index) => (
@@ -187,7 +188,7 @@ export default function RecipeForm({
                         rows.map((r) => (r.key === row.key ? { ...r, text } : r)),
                       )
                     }
-                    placeholder={`Ингредиент ${index + 1}`}
+                    placeholder={t.ingredientPlaceholder(index + 1)}
                     maxLength={120}
                     enterKeyHint="next"
                     autoFocus={focusNext.current && index === ingredients.length - 1}
@@ -196,7 +197,7 @@ export default function RecipeForm({
                 </div>
 
                 <IconButton
-                  label="Убрать ингредиент"
+                  label={t.removeIngredient}
                   tone="ghost"
                   icon={<IconClose />}
                   onClick={() =>
@@ -209,42 +210,38 @@ export default function RecipeForm({
         )}
 
         <Button variant="mint" block icon={<IconPlus />} onClick={addIngredient}>
-          Добавить ингредиент
+          {t.addIngredient}
         </Button>
       </section>
 
       {/* --- Этапы приготовления --- */}
       <section className="form__section">
-        <h2 className="form__heading">Этапы приготовления</h2>
+        <h2 className="form__heading">{t.stepsHeading}</h2>
 
-        {steps.length === 0 ? (
-          <p className="form__empty">
-            Опишите приготовление по шагам — к каждому можно добавить фото
-          </p>
-        ) : null}
+        {steps.length === 0 ? <p className="form__empty">{t.stepsHint}</p> : null}
 
         {steps.map((row, index) => (
           <Card tone="mint" className="stepEditor" key={row.key}>
             <div className="stepEditor__head">
-              <span className="stepEditor__number">Этап {index + 1}</span>
+              <span className="stepEditor__number">{t.stepNumber(index + 1)}</span>
 
               <div className="stepEditor__tools">
                 <IconButton
-                  label="Переместить выше"
+                  label={t.moveUp}
                   tone="ghost"
                   icon={<IconArrowUp />}
                   disabled={index === 0}
                   onClick={() => moveStep(index, -1)}
                 />
                 <IconButton
-                  label="Переместить ниже"
+                  label={t.moveDown}
                   tone="ghost"
                   icon={<IconArrowDown />}
                   disabled={index === steps.length - 1}
                   onClick={() => moveStep(index, 1)}
                 />
                 <IconButton
-                  label="Удалить этап"
+                  label={t.removeStep}
                   tone="ghost"
                   icon={<IconClose />}
                   onClick={() =>
@@ -261,7 +258,7 @@ export default function RecipeForm({
                   rows.map((r) => (r.key === row.key ? { ...r, text } : r)),
                 )
               }
-              placeholder="Что нужно сделать на этом шаге"
+              placeholder={t.stepPlaceholder}
               multiline
               rows={3}
               maxLength={1000}
@@ -275,14 +272,14 @@ export default function RecipeForm({
                   rows.map((r) => (r.key === row.key ? { ...r, photo } : r)),
                 )
               }
-              addLabel="Добавить фото к этапу"
+              addLabel={t.addStepPhoto}
               ratio="step"
             />
           </Card>
         ))}
 
         <Button variant="mint" block icon={<IconPlus />} onClick={addStep}>
-          Добавить этап
+          {t.addStep}
         </Button>
       </section>
     </Screen>

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 
 import { getStore } from "./data/store";
+import { I18nProvider } from "./i18n/I18nProvider";
 import HomeScreen from "./routes/HomeScreen";
 import NewRecipeScreen from "./routes/NewRecipeScreen";
 import RecipeScreen from "./routes/RecipeScreen";
@@ -23,16 +24,18 @@ export default function App() {
   }, []);
 
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/recipe/new" element={<NewRecipeScreen />} />
-        <Route path="/recipe/:id" element={<RecipeScreen />} />
-        <Route path="/recipe/:id/edit" element={<EditRecipeScreen />} />
-        <Route path="/settings" element={<SettingsScreen />} />
-        {/* Любой неизвестный адрес возвращает на главную */}
-        <Route path="*" element={<HomeScreen />} />
-      </Routes>
-    </HashRouter>
+    <I18nProvider>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/recipe/new" element={<NewRecipeScreen />} />
+          <Route path="/recipe/:id" element={<RecipeScreen />} />
+          <Route path="/recipe/:id/edit" element={<EditRecipeScreen />} />
+          <Route path="/settings" element={<SettingsScreen />} />
+          {/* Любой неизвестный адрес возвращает на главную */}
+          <Route path="*" element={<HomeScreen />} />
+        </Routes>
+      </HashRouter>
+    </I18nProvider>
   );
 }

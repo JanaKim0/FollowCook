@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 
+import { useT } from "../i18n/I18nProvider";
 import IconButton from "./IconButton";
 import { IconBack } from "./icons";
 import "./Screen.css";
@@ -33,13 +34,15 @@ export default function Screen({
   children,
   footer,
 }: ScreenProps) {
+  const t = useT();
+
   return (
     <div className="screen">
       <div className="screen__headerWrap">
         <header className="screen__header">
           <div className="screen__headerRow">
             {backTo ? (
-              <IconButton to={backTo} label="Назад" icon={<IconBack />} />
+              <IconButton to={backTo} label={t.back} icon={<IconBack />} />
             ) : null}
 
             <h1 className="screen__title">{title}</h1>

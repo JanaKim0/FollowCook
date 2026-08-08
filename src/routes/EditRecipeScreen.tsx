@@ -8,9 +8,11 @@ import Screen from "../components/Screen";
 import { useRecipe } from "../data/hooks";
 import { getStore } from "../data/store";
 import type { RecipeDraft } from "../data/types";
+import { useT } from "../i18n/I18nProvider";
 import { paths } from "./paths";
 
 export default function EditRecipeScreen() {
+  const t = useT();
   const { id: idParam = "" } = useParams();
   const navigate = useNavigate();
 
@@ -35,16 +37,13 @@ export default function EditRecipeScreen() {
   if (loading || error || recipe === null) {
     return (
       <Screen
-        title="Редактирование"
+        title={t.editTitle}
         backTo={validId === null ? paths.home : paths.recipe(validId)}
       >
         {error ? <ErrorNote text={error} /> : null}
         {loading ? <ListSkeleton count={1} /> : null}
         {!loading && !error && recipe === null ? (
-          <EmptyState
-            title="Рецепт не найден"
-            message="Возможно, он был удалён."
-          />
+          <EmptyState title={t.notFoundTitle} message={t.notFoundMessage} />
         ) : null}
       </Screen>
     );
@@ -52,9 +51,9 @@ export default function EditRecipeScreen() {
 
   return (
     <RecipeForm
-      screenTitle="Редактирование"
+      screenTitle={t.editTitle}
       backTo={paths.recipe(recipe.id)}
-      submitLabel="Сохранить изменения"
+      submitLabel={t.saveChanges}
       initial={recipe}
       onSubmit={handleSubmit}
     />
