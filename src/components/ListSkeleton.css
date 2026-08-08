@@ -1,0 +1,56 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.skeleton__card {
+  padding: var(--space-3);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.skeleton__cover {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--r-md);
+}
+
+.skeleton__line {
+  height: 14px;
+  border-radius: var(--r-pill);
+  margin-left: var(--space-2);
+}
+
+.skeleton__line--title {
+  width: 60%;
+  height: 18px;
+}
+
+.skeleton__line--meta {
+  width: 35%;
+}
+
+/* Общая мятная «дышащая» заливка для всех заглушек */
+.skeleton__cover,
+.skeleton__line {
+  background: var(--mint-100);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    background: var(--mint-200);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton__cover,
+  .skeleton__line {
+    animation: none;
+  }
+}
