@@ -81,7 +81,7 @@ export default function RecipeScreen() {
       {found ? (
         <>
           {recipe.coverPhoto ? (
-            <Photo photo={recipe.coverPhoto} alt={recipe.title} ratio="cover" />
+            <Photo photo={recipe.coverPhoto} alt={recipe.title} />
           ) : null}
 
           {/* --- Ингредиенты --- */}
@@ -118,11 +118,7 @@ export default function RecipeScreen() {
                   </div>
 
                   {step.photo ? (
-                    <Photo
-                      photo={step.photo}
-                      alt={t.stepPhotoAlt(index + 1)}
-                      ratio="step"
-                    />
+                    <Photo photo={step.photo} alt={t.stepPhotoAlt(index + 1)} />
                   ) : null}
                 </Card>
               ))

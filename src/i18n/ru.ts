@@ -72,6 +72,10 @@ export const ru = {
   replacePhoto: "Заменить",
   removePhoto: "Убрать",
   chosenPhotoAlt: "Выбранная фотография",
+  cropTitle: "Выберите кадр",
+  cropHint: "Двигайте рамку и тяните за уголки — в рецепт попадёт то, что внутри",
+  cropConfirm: "Готово",
+  cropLoading: "Открываем снимок…",
   stepPhotoAlt: (n: number) => `Фото к этапу ${n}`,
 
   // --- Экран рецепта ---

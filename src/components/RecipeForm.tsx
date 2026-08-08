@@ -198,7 +198,6 @@ export default function RecipeForm({
           photo={coverPhoto}
           onChange={setCoverPhoto}
           addLabel={t.addCoverPhoto}
-          ratio="cover"
         />
       </section>
 
@@ -305,7 +304,6 @@ export default function RecipeForm({
                 )
               }
               addLabel={t.addStepPhoto}
-              ratio="step"
             />
           </Card>
         ))}

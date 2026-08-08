@@ -63,6 +63,10 @@ export const en: Dict = {
   replacePhoto: "Replace",
   removePhoto: "Remove",
   chosenPhotoAlt: "Selected photo",
+  cropTitle: "Choose the frame",
+  cropHint: "Move the frame and drag its corners — only what is inside goes into the recipe",
+  cropConfirm: "Done",
+  cropLoading: "Opening the photo…",
   stepPhotoAlt: (n) => `Photo for step ${n}`,
 
   // --- Экран рецепта ---

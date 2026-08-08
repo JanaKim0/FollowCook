@@ -1,0 +1,163 @@
+.cropper {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  /* Тёмный фон: на нём видно настоящие цвета снимка,
+     а светлый интерфейс не спорит с фотографией */
+  background: #1b2321;
+  padding: calc(var(--space-4) + env(safe-area-inset-top)) var(--space-4)
+    calc(var(--space-4) + env(safe-area-inset-bottom));
+  gap: var(--space-3);
+}
+
+.cropper__head {
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.cropper__title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: #ffffff;
+}
+
+.cropper__hint {
+  margin-top: var(--space-1);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cropper__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cropper__loading {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+}
+
+.cropper__canvas {
+  position: relative;
+  /* Жесты забирает рамка, страница под ней не должна прокручиваться */
+  touch-action: none;
+  user-select: none;
+}
+
+.cropper__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* Затемняем всё, кроме рамки: огромная тень наружу от «дырки» */
+.cropper__shade {
+  position: absolute;
+  box-shadow: 0 0 0 9999px rgba(20, 26, 24, 0.62);
+  pointer-events: none;
+}
+
+.cropper__frame {
+  position: absolute;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+  cursor: move;
+  touch-action: none;
+}
+
+/* Сетка третей — по ней проще поймать красивую композицию */
+.cropper__grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.45) 1px, transparent 1px);
+  background-size:
+    33.333% 100%,
+    100% 33.333%;
+  background-position:
+    33.333% 0,
+    0 33.333%;
+  background-repeat: repeat-x, repeat-y;
+}
+
+/* Уголки: видимая метка небольшая, а область нажатия крупная —
+   иначе пальцем в неё не попасть */
+.cropper__handle {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  touch-action: none;
+}
+
+.cropper__handle::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffffff;
+  border-radius: 3px;
+}
+
+.cropper__handle--nw {
+  left: -20px;
+  top: -20px;
+  cursor: nwse-resize;
+}
+.cropper__handle--nw::after {
+  left: 12px;
+  top: 12px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.cropper__handle--ne {
+  right: -20px;
+  top: -20px;
+  cursor: nesw-resize;
+}
+.cropper__handle--ne::after {
+  right: 12px;
+  top: 12px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.cropper__handle--sw {
+  left: -20px;
+  bottom: -20px;
+  cursor: nesw-resize;
+}
+.cropper__handle--sw::after {
+  left: 12px;
+  bottom: 12px;
+  border-right: none;
+  border-top: none;
+}
+
+.cropper__handle--se {
+  right: -20px;
+  bottom: -20px;
+  cursor: nwse-resize;
+}
+.cropper__handle--se::after {
+  right: 12px;
+  bottom: 12px;
+  border-left: none;
+  border-top: none;
+}
+
+.cropper__actions {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}

@@ -16,7 +16,7 @@ export default function RecipeCard({ recipe, stepsLabel }: RecipeCardProps) {
   return (
     <Card to={paths.recipe(recipe.id)} className="recipeCard">
       {recipe.coverPhoto ? (
-        <Photo photo={recipe.coverPhoto} alt={recipe.title} ratio="cover" />
+        <Photo photo={recipe.coverPhoto} alt={recipe.title} />
       ) : (
         // Без обложки карточка не должна выглядеть сломанной —
         // вместо фото мятная плашка с белочкой
