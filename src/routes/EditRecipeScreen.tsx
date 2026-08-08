@@ -1,27 +1,62 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-import Button from "../components/Button";
-import Card from "../components/Card";
+import EmptyState from "../components/EmptyState";
+import ErrorNote from "../components/ErrorNote";
+import ListSkeleton from "../components/ListSkeleton";
+import RecipeForm from "../components/RecipeForm";
 import Screen from "../components/Screen";
-import { IconCheck } from "../components/icons";
+import { useRecipe } from "../data/hooks";
+import { getStore } from "../data/store";
+import type { RecipeDraft } from "../data/types";
 import { paths } from "./paths";
 
 export default function EditRecipeScreen() {
-  const { id = "" } = useParams();
+  const { id: idParam = "" } = useParams();
+  const navigate = useNavigate();
+
+  const id = Number(idParam);
+  const validId = Number.isInteger(id) && id > 0 ? id : null;
+
+  const { data: recipe, loading, error } = useRecipe(validId);
+
+  async function handleSubmit(draft: RecipeDraft) {
+    if (validId === null) return;
+
+    const store = await getStore();
+    await store.updateRecipe(validId, draft);
+
+    // Возвращаемся к рецепту, чтобы сразу увидеть результат правки.
+    // replace — чтобы кнопка «назад» не вернула обратно в форму.
+    navigate(paths.recipe(validId), { replace: true });
+  }
+
+  // Форма берёт начальные значения один раз при появлении на экране,
+  // поэтому показываем её только когда рецепт уже прочитан
+  if (loading || error || recipe === null) {
+    return (
+      <Screen
+        title="Редактирование"
+        backTo={validId === null ? paths.home : paths.recipe(validId)}
+      >
+        {error ? <ErrorNote text={error} /> : null}
+        {loading ? <ListSkeleton count={1} /> : null}
+        {!loading && !error && recipe === null ? (
+          <EmptyState
+            title="Рецепт не найден"
+            message="Возможно, он был удалён."
+          />
+        ) : null}
+      </Screen>
+    );
+  }
 
   return (
-    <Screen
-      title="Редактирование"
-      backTo={paths.recipe(id)}
-      footer={
-        <Button variant="primary" size="lg" block icon={<IconCheck />} disabled>
-          Сохранить изменения
-        </Button>
-      }
-    >
-      <Card>
-        <p>Здесь можно будет изменить название, ингредиенты и этапы.</p>
-      </Card>
-    </Screen>
+    <RecipeForm
+      screenTitle="Редактирование"
+      backTo={paths.recipe(recipe.id)}
+      submitLabel="Сохранить изменения"
+      initial={recipe}
+      onSubmit={handleSubmit}
+    />
   );
 }
