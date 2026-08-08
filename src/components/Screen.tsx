@@ -20,6 +20,12 @@ type ScreenProps = {
   headerRight?: ReactNode;
   /** Строка под заголовком: количество рецептов, подсказка и т.п. */
   subtitle?: ReactNode;
+  /**
+   * Блок в самом низу шапки — для поиска и сортировки.
+   * Прилипает к верху вместе с шапкой, поэтому остаётся под рукой
+   * при прокрутке длинного списка.
+   */
+  headerBottom?: ReactNode;
   children: ReactNode;
   /** Панель, прилипшая к низу экрана — для главных кнопок вроде «Сохранить» */
   footer?: ReactNode;
@@ -38,6 +44,7 @@ export default function Screen({
   onBack,
   headerRight,
   subtitle,
+  headerBottom,
   children,
   footer,
 }: ScreenProps) {
@@ -62,6 +69,10 @@ export default function Screen({
           </div>
 
           {subtitle ? <p className="screen__subtitle">{subtitle}</p> : null}
+
+          {headerBottom ? (
+            <div className="screen__headerBottom">{headerBottom}</div>
+          ) : null}
         </header>
       </div>
 

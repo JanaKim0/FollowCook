@@ -26,6 +26,16 @@ export const ru = {
   emptyTitle: "Пока пусто",
   emptyMessage: "Добавьте первый рецепт — и он появится здесь.",
 
+  // --- Поиск и сортировка ---
+  searchPlaceholder: "Найти рецепт",
+  clearSearch: "Очистить поиск",
+  sortNewest: "Сначала новые",
+  sortOldest: "Сначала старые",
+  foundCount: (n: number) =>
+    `Нашлось ${n} ${pluralRu(n, ["рецепт", "рецепта", "рецептов"])}`,
+  nothingFoundTitle: "Ничего не нашлось",
+  nothingFoundMessage: (query: string) => `По запросу «${query}» рецептов нет.`,
+
   // --- Форма рецепта ---
   newRecipeTitle: "Новый рецепт",
   editTitle: "Редактирование",

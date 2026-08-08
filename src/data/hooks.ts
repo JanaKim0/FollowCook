@@ -87,6 +87,47 @@ export function useRecipe(id: number | null): Async<RecipeFull | null> {
 }
 
 /**
+ * Настройка приложения, которая помнит себя между запусками.
+ *
+ * Нужна, например, для порядка сортировки: главный экран собирается
+ * заново каждый раз при возвращении со страницы рецепта, и без сохранения
+ * выбранный порядок сбрасывался бы постоянно.
+ */
+export function useSetting(
+  key: string,
+  fallback: string,
+): [string, (value: string) => void] {
+  const [value, setValue] = useState(fallback);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    getStore()
+      .then((store) => store.getSetting(key))
+      .then((saved) => {
+        if (!cancelled && saved !== null) setValue(saved);
+      })
+      .catch(() => {
+        // Настройка не прочиталась — остаёмся на значении по умолчанию
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [key]);
+
+  const update = useCallback(
+    (next: string) => {
+      setValue(next);
+      void getStore().then((store) => store.setSetting(key, next));
+    },
+    [key],
+  );
+
+  return [value, update];
+}
+
+/**
  * Превращает ссылку на снимок в адрес для <img src>.
  * На телефоне это асинхронный вызов, поэтому первый кадр приходит пустым.
  */

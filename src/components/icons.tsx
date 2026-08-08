@@ -106,6 +106,25 @@ export function IconArrowDown({ className }: IconProps) {
   );
 }
 
+export function IconSearch({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="m16 16 4 4" />
+    </svg>
+  );
+}
+
+/** Две стрелки в разные стороны — значок смены порядка списка. */
+export function IconSort({ className }: IconProps) {
+  return (
+    <svg {...base} className={className}>
+      <path d="M7 20V5M3.5 8.5 7 5l3.5 3.5" />
+      <path d="M17 4v15M13.5 15.5 17 19l3.5-3.5" />
+    </svg>
+  );
+}
+
 export function IconClose({ className }: IconProps) {
   return (
     <svg {...base} className={className}>

@@ -18,6 +18,15 @@ export const en: Dict = {
   emptyTitle: "Nothing here yet",
   emptyMessage: "Add your first recipe and it will show up here.",
 
+  // --- Поиск и сортировка ---
+  searchPlaceholder: "Find a recipe",
+  clearSearch: "Clear search",
+  sortNewest: "Newest first",
+  sortOldest: "Oldest first",
+  foundCount: (n) => `Found ${n} ${n === 1 ? "recipe" : "recipes"}`,
+  nothingFoundTitle: "Nothing found",
+  nothingFoundMessage: (query) => `No recipes match “${query}”.`,
+
   // --- Форма рецепта ---
   newRecipeTitle: "New recipe",
   editTitle: "Edit recipe",

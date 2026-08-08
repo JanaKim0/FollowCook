@@ -60,6 +60,10 @@
   color: var(--ink-70);
 }
 
+.screen__headerBottom {
+  margin-top: var(--space-4);
+}
+
 .screen__headerRight {
   display: flex;
   align-items: center;
