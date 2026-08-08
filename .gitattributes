@@ -1,0 +1,13 @@
+# Единый перевод строки в репозитории (LF), чтобы не было мусорных диффов
+# при работе с Windows.
+* text=auto eol=lf
+
+# Бинарные файлы не трогаем
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.ico binary
+*.apk binary
+*.keystore binary
+*.jks binary
