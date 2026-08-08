@@ -65,7 +65,20 @@ foreach ($t in $targets) {
     Write-Host ("  {0,-14} {1,6:N1} МБ" -f $t.abi, ((Get-Item $dest).Length / 1MB))
 }
 
-# --- 3. Упаковываем .apk ---
+# --- 3. Кладём иконки приложения в Android-проект ---
+# Обязательный шаг: `tauri android init` создаёт проект со своими шаблонными
+# иконками, и если не перезаписать их, на телефоне окажется логотип Tauri.
+$iconsSrc = Join-Path $root "src-tauri\icons\android"
+$resDir = Join-Path $root "src-tauri\gen\android\app\src\main\res"
+
+if (Test-Path $iconsSrc) {
+    Copy-Item (Join-Path $iconsSrc "*") $resDir -Recurse -Force
+    Write-Host "`nИконки приложения обновлены" -ForegroundColor Cyan
+} else {
+    Write-Warning "Иконки не найдены в $iconsSrc — соберите их: npx tauri icon src-tauri/app-icon.png"
+}
+
+# --- 4. Упаковываем .apk ---
 Set-Location (Join-Path $root "src-tauri\gen\android")
 
 $gradleArgs = @(
